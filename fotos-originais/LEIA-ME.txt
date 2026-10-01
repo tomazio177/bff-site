@@ -1,0 +1,26 @@
+FOTOGRAFIAS DO BFF
+==================
+
+Largar as fotografias na pasta certa:
+
+  beer/     bebidas, cerveja, cocktails, o bar
+  food/     comida
+  equipa/   a equipa
+            - grupo.jpg   a fotografia de grupo (vai para o topo da página)
+            - o resto     uma por pessoa, com o nome e a função em data/equipa.json
+
+Formatos: JPG, PNG, WebP. Fotografias de telemóvel servem, e quanto maior
+melhor: o site gera sozinho as versões pequenas.
+
+A ordem na galeria é a ordem alfabética dos ficheiros. Para escolher quem
+aparece primeiro, pôr números à frente: 01-francesinha.jpg, 02-tabua.jpg...
+
+Texto por baixo de uma fotografia (opcional): criar legendas.json na pasta,
+
+  {
+    "01-francesinha.jpg": { "alt": "Francesinha no prato", "legenda": "A francesinha" }
+  }
+
+"alt" é o que um leitor de ecrã lê. "legenda" aparece no site.
+
+Depois de mudar fotografias:  npm run build

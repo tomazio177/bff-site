@@ -1,0 +1,14 @@
+Coloque aqui o video final do tour.
+
+Sugestao de ficheiros:
+  tour-desktop.mp4   (1920x1080, H.264 ou AV1, sem audio, ~8-15 s em loop)
+  tour-mobile.mp4    (1080x1350 ou 1080x1920, mais leve)
+  tour-poster.jpg    (primeiro frame, usado enquanto o video carrega)
+
+Depois abra index.html e preencha os tres atributos do elemento <video>:
+  data-src-desktop="/assets/tour/final/tour-desktop.mp4"
+  data-src-mobile="/assets/tour/final/tour-mobile.mp4"
+  data-poster="/assets/tour/final/tour-poster.jpg"
+
+Mais nada precisa de mudar. O tour.js deteta o ficheiro, liga o video ao
+scroll, esconde o marcador de posicao e a nota de pre-visualizacao.

@@ -1,0 +1,15 @@
+{
+  "name": "bff-site",
+  "private": true,
+  "type": "module",
+  "description": "Site do BFF, Beer, Food & Freinds. HTML estático, sem framework.",
+  "scripts": {
+    "fotos": "node tools/build-images.mjs",
+    "paginas": "node tools/build-pages.mjs",
+    "build": "node tools/build-images.mjs && node tools/build-pages.mjs",
+    "serve": "npx serve ."
+  },
+  "devDependencies": {
+    "sharp": "^0.34.0"
+  }
+}

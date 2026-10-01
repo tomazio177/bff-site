@@ -1,0 +1,557 @@
+/* ============================================================
+   BFF - Fotografia e narrativa
+   Secções desta folha:
+     .ph        primitiva de fotografia (LQIP + proporção reservada)
+     .hero      cartaz de abertura sobre fotografia real
+     .trio      Beer / Food / Friends, compacto e fixo
+     .sobre     quem somos, editorial
+     .patroa    porque é que isto começou
+     .rail      galeria em carril horizontal
+   ============================================================ */
+
+/* ------------------- Primitiva de fotografia --------------------- */
+/* Reserva a proporção antes de a imagem chegar (CLS zero) e mostra o
+   LQIP desfocado por baixo enquanto carrega. */
+.ph {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ph-ratio, 1);
+  background-color: var(--ph-color, var(--ink-raised));
+  background-image: var(--ph-lqip);
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
+}
+.ph img { width: 100%; height: 100%; object-fit: cover; }
+/* O fade so existe quando ha JS para o desligar. Sem JS a fotografia
+   aparece de imediato, em vez de ficar invisivel para sempre. */
+.js .ph img { opacity: 0; transition: opacity 520ms var(--ease-out); }
+.js .ph img[data-loaded] { opacity: 1; }
+
+/* Camada de leitura por cima das fotografias de fundo. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom,
+      rgb(8 7 6 / 0.86) 0%,
+      rgb(8 7 6 / 0.34) 34%,
+      rgb(8 7 6 / 0.52) 68%,
+      rgb(8 7 6 / 0.94) 100%),
+    radial-gradient(120% 80% at 70% 30%, rgb(195 130 11 / 0.20), transparent 62%);
+}
+
+/* ---------------------------- HERO ------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: 5rem clamp(2.5rem, 7vh, 5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero__bg {
+  position: absolute;
+  inset: -8% 0 -8% 0;    /* folga para o parallax não descobrir as bordas */
+  z-index: -2;
+  will-change: transform;
+}
+.hero__bg .ph { width: 100%; height: 100%; aspect-ratio: auto; }
+.hero__bg .ph img { object-position: center 42%; }
+
+.hero__inner {
+  display: grid;
+  justify-items: start;
+  gap: clamp(0.85rem, 2.2vh, 1.6rem);
+  width: min(100% - var(--gutter) * 2, var(--shell));
+}
+
+.hero__eyebrow { margin-block-end: -0.3rem; }
+
+.hero__mark { margin: 0; line-height: 0; }
+.hero__mark img {
+  width: min(78vw, 620px);
+  max-height: 26vh;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 6px 40px rgb(8 7 6 / 0.75));
+}
+
+.hero__tagline {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--cream);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.3em;
+}
+
+.hero__lede {
+  font-size: var(--step-1);
+  color: var(--cream-2);
+  max-width: 32ch;
+  line-height: 1.45;
+  text-shadow: 0 2px 24px rgb(8 7 6 / 0.9);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-block-start: 0.4rem;
+}
+
+/* No trio o texto grande fica a meio do ecra, onde o scrim normal e
+   mais claro. Aqui escurece-se a faixa central para as palavras
+   apagadas continuarem a ler-se sobre qualquer fotografia. */
+.trio .scrim {
+  background:
+    linear-gradient(to bottom,
+      rgb(8 7 6 / 0.82) 0%,
+      rgb(8 7 6 / 0.66) 30%,
+      rgb(8 7 6 / 0.70) 62%,
+      rgb(8 7 6 / 0.92) 100%),
+    radial-gradient(120% 80% at 70% 30%, rgb(195 130 11 / 0.16), transparent 62%);
+}
+
+/* ---------------------------- TRIO ------------------------------- */
+/* Beer, Food e Friends ficam juntos, sempre visíveis ao mesmo tempo.
+   O scroll acende um de cada vez e troca a fotografia por trás.
+   A altura de scroll é dada pelo GSAP, por isso o espaçamento é o
+   mesmo em qualquer ecrã. */
+.trio {
+  position: relative;
+  background: var(--ink);
+  z-index: var(--z-content);
+}
+
+.trio__stage {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.trio__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.trio__shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.trio__shot .ph { width: 100%; height: 100%; aspect-ratio: auto; }
+.trio__shot:first-child { opacity: 1; }
+
+.trio__inner {
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(1.2rem, 4vh, 2.5rem);
+  justify-items: start;
+  padding-block: clamp(5rem, 12vh, 7rem);
+}
+
+/* A lista fica encostada: leading apertado, nada entre as palavras. */
+.trio__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.trio__item {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 19vw, 9.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: rgb(244 240 230 / 0.42);
+  transition: color 420ms var(--ease-out);
+  text-shadow: 0 2px 50px rgb(8 7 6 / 0.85);
+  will-change: transform, color;
+}
+.trio__item[data-on] { color: var(--cream); }
+.trio__item[data-on] .trio__amp { color: var(--gold-lift); }
+.trio__amp { color: rgb(226 160 43 / 0.34); transition: color 420ms var(--ease-out); }
+
+.trio__caption {
+  font-size: var(--step-1);
+  color: var(--cream-2);
+  max-width: 34ch;
+  min-height: 3.2em;
+  text-shadow: 0 2px 24px rgb(8 7 6 / 0.9);
+}
+
+/* Cada palavra é um link para a sua página. A seta aparece na palavra
+   acesa, e em qualquer uma que se aponte. */
+.trio__link {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.1em;
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur) var(--ease-out);
+}
+.trio__arrow {
+  width: 0.3em;
+  height: 0.3em;
+  margin-block-start: 0.1em;
+  color: var(--gold-lift);
+  opacity: 0;
+  transform: translate(-0.08em, 0.08em);
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.trio__item[data-on] .trio__arrow { opacity: 0.9; transform: none; }
+.trio__link:hover,
+.trio__link:focus-visible { color: var(--cream); }
+.trio__link:hover .trio__arrow,
+.trio__link:focus-visible .trio__arrow { opacity: 1; transform: none; }
+
+.trio__side {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+.trio__go { min-height: 44px; padding-block: 0.55rem; }
+
+@media (min-width: 900px) {
+  .trio__inner {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    justify-items: start;
+  }
+  .trio__side {
+    justify-self: end;
+    justify-items: end;
+    text-align: right;
+    margin-block-end: 0.6rem;
+  }
+}
+
+/* --------------------------- QUEM SOMOS -------------------------- */
+.sobre {
+  padding-block: var(--section-y);
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink);
+  position: relative;
+  z-index: var(--z-content);
+}
+.sobre__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .sobre__grid { grid-template-columns: 6fr 5fr; }
+}
+.sobre__title {
+  font-size: var(--step-3);
+  letter-spacing: -0.015em;
+  max-width: 14ch;
+}
+.sobre__body {
+  margin-block-start: 1.6rem;
+  display: grid;
+  gap: 1.1rem;
+  max-width: 54ch;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--cream-2);
+}
+.sobre__body strong { color: var(--gold-lift); font-weight: 600; }
+.sobre__photo { position: relative; overflow: hidden; }
+.sobre__photo .ph img { transform: scale(1.08); will-change: transform; }
+
+/* ---------------------------- A PATROA --------------------------- */
+.patroa {
+  padding-block: var(--section-y);
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink-raised);
+  position: relative;
+  z-index: var(--z-content);
+}
+.patroa__grid {
+  display: grid;
+  gap: clamp(1.8rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .patroa__grid { grid-template-columns: 4fr 7fr; align-items: start; }
+}
+.patroa__label {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: var(--gold-lift);
+}
+.patroa__title {
+  font-size: var(--step-2);
+  letter-spacing: -0.01em;
+  margin-block-start: 0.6rem;
+  color: var(--cream);
+}
+.patroa__body {
+  display: grid;
+  gap: 1.1rem;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--cream-2);
+  max-width: 56ch;
+}
+
+/* Convite a escrever. Assumidamente por preencher: nunca inventa a
+   história de uma pessoa real. */
+.patroa__prompt {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.4rem, 4vw, 2.2rem);
+  border: 1px dashed var(--hairline-strong);
+  background: rgb(244 240 230 / 0.03);
+  max-width: 56ch;
+}
+.patroa__prompt p {
+  color: var(--cream-3);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+.patroa__prompt p:first-child {
+  color: var(--gold-lift);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* --------------------------- GALERIA ----------------------------- */
+/* Uma seccao normal, com a altura do que la esta dentro. Nao fixa nada e
+   nao converte scroll vertical em horizontal: o carril rola por si, com o
+   dedo, com o trackpad ou arrastado com o rato, e a pagina continua a
+   descer normalmente por cima dele. */
+.rail {
+  padding-block: var(--section-y);
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.rail__stage {
+  display: grid;
+  gap: clamp(1.4rem, 4vh, 2.4rem);
+}
+
+.rail__head {
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: clamp(1rem, 4vw, 3rem);
+}
+.rail__title { font-size: var(--step-3); letter-spacing: -0.015em; }
+
+/* Mostra quanto falta do carril. Segue a posicao real da barra de scroll
+   horizontal, por isso funciona com qualquer forma de o mover. */
+.rail__meter {
+  flex: none;
+  width: min(34vw, 180px);
+  height: 2px;
+  background: var(--hairline-strong);
+  overflow: hidden;
+  align-self: center;
+}
+.rail__meter span {
+  display: block;
+  height: 100%;
+  background: var(--gold-lift);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.rail__track {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Trava o gesto no carril: sem isto, chegar ao fim comecava a arrastar a
+     pagina inteira para o lado em alguns browsers. */
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
+  cursor: grab;
+}
+.rail__track::-webkit-scrollbar { display: none; }
+.rail__track[data-dragging] {
+  cursor: grabbing;
+  scroll-snap-type: none;      /* o encaixe lutava com o arrasto */
+  user-select: none;
+}
+
+.rail__cell {
+  flex: none;
+  width: min(74vw, 320px);
+  scroll-snap-align: center;
+  margin: 0;
+}
+/* Todas as celulas com a mesma proporcao: as fotografias tem formatos
+   diferentes e sem isto o carril ficava com o rodape aos degraus. */
+.rail__cell .ph {
+  aspect-ratio: 3 / 4;
+  will-change: transform;
+}
+.rail__cell figcaption {
+  margin-block-start: 0.7rem;
+  font-size: var(--step--1);
+  color: var(--cream-3);
+  min-height: 1.6em;
+}
+
+@media (min-width: 900px) {
+  .rail__track {
+    padding-inline: max(var(--gutter), calc((100vw - var(--shell)) / 2));
+    /* Em ecra largo o encaixe rigido torna o arrasto pesado. */
+    scroll-snap-type: x proximity;
+  }
+  .rail__cell { width: clamp(280px, 26vw, 400px); }
+}
+
+/* Sem movimento: o carril volta a ser uma grelha simples. */
+@media (prefers-reduced-motion: reduce) {
+  .rail__track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    overflow: visible;
+    padding-inline: var(--gutter);
+    cursor: auto;
+  }
+  .rail__cell { width: auto; }
+  .rail__meter { display: none; }
+  .trio__shot { position: relative; opacity: 1; }
+  .trio__shot + .trio__shot { display: none; }
+  .trio__item { color: var(--cream); }
+}
+
+/* ---------------------------- O FINAL ---------------------------- */
+/* A página fixa-se uma última vez para acabar num sítio, em vez de
+   simplesmente deixar de haver secções. */
+.finale {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgb(195 130 11 / 0.22), transparent 62%),
+    var(--ink);
+  border-block-start: 1px solid var(--hairline);
+  z-index: var(--z-content);
+}
+
+.finale__stage {
+  position: relative;
+  height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.finale__seal {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: min(96vmin, 780px);
+  translate: -50% -50%;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.finale__inner {
+  display: grid;
+  gap: clamp(1.6rem, 5vh, 3rem);
+  justify-items: start;
+}
+
+.finale__title {
+  font-size: clamp(3.6rem, 20vw, 10rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  display: grid;
+  gap: 0;
+}
+/* Cada linha é uma janela: o texto sobe de dentro dela, sem transbordar. */
+.finale__line {
+  display: block;
+  overflow: hidden;
+  padding-block-end: 0.06em;   /* folga para as descidas do g e do p */
+}
+.finale__line span,
+.finale__line em {
+  display: inline-block;
+  font-style: normal;
+  will-change: transform;
+}
+.finale__line em { color: var(--gold-lift); }
+
+.finale__foot {
+  display: grid;
+  gap: 1.4rem;
+  justify-items: start;
+}
+.finale__foot .menucta__chips { justify-content: flex-start; }
+.finale__foot .menucta__msg { text-align: start; margin-block-start: 0.8rem; }
+
+/* ----------------------------- A TIRA ---------------------------- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(1.2rem, 3vh, 2rem);
+  background: var(--ink);
+  border-block: 1px solid var(--hairline);
+  z-index: var(--z-content);
+  user-select: none;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee__half { display: flex; }
+.marquee__unit {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 4.6rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  padding-inline-end: 0.3em;
+  /* Contorno em vez de cheio: a tira carrega a assinatura sem competir
+     com os títulos das secções. */
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(226 160 43 / 0.55);
+}
+/* Sem suporte de contorno, volta a texto cheio mas discreto. */
+@supports not (-webkit-text-stroke: 1px red) {
+  .marquee__unit { color: rgb(226 160 43 / 0.42); -webkit-text-stroke: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finale__stage { height: auto; padding-block: clamp(4rem, 10vh, 6rem); }
+  .finale__seal { opacity: 0.14; transform: none; }
+  .finale__line span, .finale__line em { transform: none; }
+  .marquee__track { width: auto; }
+  .marquee__half + .marquee__half { display: none; }
+  .marquee__unit { white-space: normal; }
+}

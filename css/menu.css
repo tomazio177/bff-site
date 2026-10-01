@@ -1,0 +1,248 @@
+/* ============================================================
+   BFF - Página do menu
+   Mesmo tema, mesmo acento, mesmas formas. O menu é uma lista longa
+   por natureza, por isso ganha cabeçalhos por categoria, uma barra de
+   categorias fixa e uma só linha fina entre itens.
+   ============================================================ */
+
+.page-menu { padding-block-start: 68px; }
+
+/* --------------------------- Cabeçalho --------------------------- */
+.menu-hero {
+  position: relative;
+  padding-block: clamp(3rem, 9vh, 6rem) clamp(2rem, 5vh, 3.5rem);
+  overflow: hidden;
+  background:
+    radial-gradient(90% 120% at 12% 0%, rgb(195 130 11 / 0.20), transparent 58%),
+    var(--ink);
+  border-block-end: 1px solid var(--hairline);
+}
+.menu-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 820px) {
+  .menu-hero__grid { grid-template-columns: 1fr auto; }
+}
+.menu-hero__title {
+  font-size: var(--step-4);
+  letter-spacing: -0.02em;
+}
+.menu-hero__lede {
+  margin-block-start: 1rem;
+  font-size: var(--step-1);
+  color: var(--cream-2);
+  max-width: 38ch;
+}
+.menu-hero__stamp {
+  margin-block-start: 1.1rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cream-3);
+  min-height: 1.2em;
+}
+.menu-hero__mark {
+  width: min(34vw, 190px);
+  opacity: 0.22;
+  justify-self: end;
+}
+@media (max-width: 819px) { .menu-hero__mark { display: none; } }
+
+/* ---------------------- Barra de categorias ---------------------- */
+.catnav {
+  position: sticky;
+  inset-block-start: 68px;
+  z-index: var(--z-nav);
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.85rem var(--gutter);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  background: rgb(12 11 10 / 0.9);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-block-end: 1px solid var(--hairline);
+  overscroll-behavior-x: contain;
+}
+.catnav::-webkit-scrollbar { display: none; }
+@supports not (backdrop-filter: blur(1px)) {
+  .catnav { background: rgb(12 11 10 / 0.97); }
+}
+.catnav__chip {
+  scroll-snap-align: start;
+  flex: none;
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+.catnav__chip:hover { color: var(--cream); border-color: var(--cream-3); }
+.catnav__chip[data-current] {
+  color: #17120a;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ------------------------------ Itens ---------------------------- */
+.menu-body {
+  padding-block: clamp(2.5rem, 7vh, 4.5rem) clamp(3rem, 9vh, 6rem);
+  display: grid;
+  gap: clamp(2.5rem, 6vh, 4rem);
+}
+
+.cat { scroll-margin-block-start: 140px; }
+
+.cat__title {
+  font-size: var(--step-2);
+  color: var(--gold-lift);
+  letter-spacing: -0.005em;
+  padding-block-end: 0.9rem;
+  border-block-end: 1px solid var(--hairline-strong);
+}
+.cat__desc {
+  margin-block-start: 0.8rem;
+  color: var(--cream-3);
+  max-width: var(--measure);
+  font-size: var(--step--1);
+}
+
+.cat__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.1rem;
+}
+.item:has(.item__img) { grid-template-columns: auto 1fr auto; }
+/* Uma só linha entre itens. Nunca em cima e em baixo. */
+.item + .item { border-block-start: 1px solid var(--hairline); }
+
+.item__img {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  grid-row: span 2;
+  filter: saturate(0.92);
+}
+
+.item__name {
+  font-weight: 600;
+  font-size: var(--step-0);
+  line-height: 1.35;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.item__flag {
+  font-size: 0.66em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-lift);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-control);
+  padding: 0.15em 0.7em;
+  font-weight: 700;
+}
+.item__desc {
+  margin-block-start: 0.3rem;
+  color: var(--cream-3);
+  font-size: var(--step--1);
+  line-height: 1.55;
+  max-width: 56ch;
+}
+.item__out {
+  margin-block-start: 0.35rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-3);
+}
+.item__price {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--cream);
+}
+.item[data-unavailable] { opacity: 0.5; }
+.item[data-unavailable] .item__price { text-decoration: line-through; }
+
+.demo-flag {
+  padding: 0.8rem 1.1rem;
+  border: 1px solid var(--gold);
+  background: var(--gold-wash);
+  color: var(--cream);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+/* ---------------------------- Esqueleto -------------------------- */
+.skel {
+  background: linear-gradient(90deg,
+    rgb(244 240 230 / 0.05) 25%,
+    rgb(244 240 230 / 0.11) 50%,
+    rgb(244 240 230 / 0.05) 75%);
+  background-size: 240% 100%;
+  border-radius: 2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .skel { animation: shimmer 1.4s linear infinite; }
+}
+.skel--title { height: 2rem; width: min(42%, 240px); margin-block-end: 1.2rem; }
+.skel--line { height: 0.85rem; width: 60%; }
+.skel--line + .skel--line { margin-block-start: 0.55rem; }
+.skel--short { width: 34%; }
+.skel--price { height: 0.9rem; width: 3.4rem; }
+
+/* ----------------------- Erro, vazio, retomar -------------------- */
+.state {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding-block: clamp(3rem, 12vh, 6rem);
+  border: 1px solid var(--hairline);
+  background: var(--ink-raised);
+}
+.state__icon {
+  width: 2.4rem; height: 2.4rem;
+  fill: var(--gold);
+}
+.state__title { font-size: var(--step-2); }
+.state__body {
+  color: var(--cream-2);
+  max-width: 42ch;
+  padding-inline: 1.5rem;
+}
+.state .btn { margin-block-start: 0.6rem; }
+
+/* --------------------------- Rodapé útil ------------------------- */
+.menu-foot {
+  padding-block: clamp(2.5rem, 7vh, 4rem);
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink-raised);
+}
+.menu-foot__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.menu-foot__note { color: var(--cream-2); line-height: 1.6; }
+.menu-foot__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+@media (max-width: 560px) {
+  .item { grid-template-columns: 1fr auto; }
+  .item:has(.item__img) { grid-template-columns: auto 1fr; }
+  .item:has(.item__img) .item__price { grid-column: 2; }
+}

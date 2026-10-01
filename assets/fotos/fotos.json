@@ -1,0 +1,113 @@
+{
+  "_aviso": "Gerado por tools/build-images.mjs. Não editar à mão.",
+  "fotos": [
+    {
+      "id": "sala",
+      "categoria": "casa",
+      "file": "sala.png",
+      "alt": "Sala do BFF cheia, pessoas à conversa ao balcão com canecas de cerveja",
+      "legenda": null,
+      "crop": null,
+      "width": 909,
+      "height": 729,
+      "ratio": 1.2469,
+      "widths": [
+        480,
+        760,
+        909
+      ],
+      "lqip": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQBACdASoUABAAPu1iqU2ppaOiMAgBMB2JYwCsACHmwvpg+1pGrYMpAAD+dzm/z+nvN0huB+4I/EOV09DtMwjutc4Bv5x27XkblkMYgAA=",
+      "color": "#4b3e31"
+    },
+    {
+      "id": "bar",
+      "categoria": "beer",
+      "file": "bar.png",
+      "alt": "O balcão do BFF, com o letreiro luminoso food and friends por cima das garrafas",
+      "legenda": "O balcão",
+      "crop": null,
+      "width": 727,
+      "height": 906,
+      "ratio": 0.8024,
+      "widths": [
+        480,
+        727
+      ],
+      "lqip": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAwBQCdASoUABkAPu1oqk+ppiOiKA1RMB2JQBOmargt/1/waLuyWx0xlYj/QZkw0v9QAAD9IPZX/Xr1TXgNVA7txS0Tq7VUQqC3uqaBAGXzX/0gIaJ7i4DvdlaKRViLhHa7UvAsMpa3fjY4nlt09anIFehAAA==",
+      "color": "#5c4e3c"
+    },
+    {
+      "id": "garrafeira",
+      "categoria": "beer",
+      "file": "garrafeira.png",
+      "alt": "Prateleiras de whisky e copos de pé suspensos por cima do balcão",
+      "legenda": "A garrafeira",
+      "crop": {
+        "left": 16,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "width": 681,
+      "height": 907,
+      "ratio": 0.7508,
+      "widths": [
+        480,
+        681
+      ],
+      "lqip": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwBQCdASoUABsAPu1mrE+ppSQiMBgIATAdiWUAsOwM+hRjx+4dRIA5hDIAwU9VA3iTAAD+8N947d1SpI3g2M4Tl4g2r7qrgDa21RdDS4184gfqHvvvQl4OjdVVkrRY6mAsMEWSXcibpeN/4grZoAAA",
+      "color": "#60503c"
+    },
+    {
+      "id": "balcao",
+      "categoria": "beer",
+      "file": "balcao.png",
+      "alt": "Cocktail a ser servido no balcão, copo cheio de gelo",
+      "legenda": "Ao serviço",
+      "crop": null,
+      "width": 706,
+      "height": 917,
+      "ratio": 0.7699,
+      "widths": [
+        480,
+        706
+      ],
+      "lqip": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAwBQCdASoUABoAPu1kq04ppaQiMAgBMB2JQBOmYThho5BX+Oo4V0XK3+I7JUJBbsCIEAD9iqUbotSQyfNvqkySLn9PjzYAr+AOM3ePMIB1PpzhyN5w6Iu5XvoHXJsthKIJMUrsapwaK+5OYAxqxFSRs9NsiSTX2PhpkUcSQG+z2yTO4SKiVSkP4AA=",
+      "color": "#5a4a34"
+    },
+    {
+      "id": "cocktails",
+      "categoria": "beer",
+      "file": "cocktails.png",
+      "alt": "Dois cocktails no tabuleiro, um com fatia de ananás",
+      "legenda": "Os cocktails",
+      "crop": null,
+      "width": 726,
+      "height": 905,
+      "ratio": 0.8022,
+      "widths": [
+        480,
+        726
+      ],
+      "lqip": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwBQCdASoUABkAPu1osFCppaSiqAqpMB2JbACdMtB7KBDnNs2Zu7OgER7GGN0EPMYNK2+AAP573ibglLk1yHzS7Xty7e9PKPmyk7v93Tu3nW3nv1u2GrKSFJh8JFSW5Vzeg8HCh+aW1zt3qi9m8Q1NDr8P4PdB13Y3GqwcQIChWkprh7hDEFNzAAA=",
+      "color": "#6c5a36"
+    },
+    {
+      "id": "hamburguer",
+      "categoria": "food",
+      "file": "hamburguer.png",
+      "alt": "Hambúrguer com queijo derretido e batatas, servido em prato de louça",
+      "legenda": "O hambúrguer",
+      "crop": null,
+      "width": 688,
+      "height": 818,
+      "ratio": 0.8411,
+      "widths": [
+        480,
+        688
+      ],
+      "lqip": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABQBQCdASoUABgAPu1irU+ppSQiMBgIATAdiWoAuzLaQaoRld3WC8fx2wlTv+FuibqGAYAA/vFPYVepPCklSoMvR5IjIHQ3BrdKOaL6b3Kj4vaETLxO3vuORgGpapTu9mxByDlHWiP5/AiFDkMu4bcl2WnjUnU6R5vl9SdvjNK4C4Vr3WAAAA==",
+      "color": "#785631"
+    }
+  ]
+}

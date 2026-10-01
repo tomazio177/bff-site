@@ -1,0 +1,174 @@
+/* ============================================================
+   BFF - Reset, fonts, primitives
+   ============================================================ */
+
+/* Self-hosted. No external font requests at runtime. */
+@font-face {
+  font-family: "Anton";
+  src: url("../assets/fonts/anton-latin.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+2000-206F, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Anton";
+  src: url("../assets/fonts/anton-latin-ext.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+1E00-1E9F, U+1EF2-1EFF,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-latin-ext.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+1E00-1E9F, U+1EF2-1EFF,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+img, video { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+
+/* --- Focus: always visible, never removed --- */
+:focus-visible {
+  outline: 2px solid var(--gold-lift);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* --- Utilities --- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; inset-inline-start: var(--gutter); inset-block-start: 0;
+  transform: translateY(-120%);
+  z-index: var(--z-overlay);
+  background: var(--gold); color: var(--ink);
+  padding: 0.7rem 1.2rem; border-radius: 0 0 var(--r-control) var(--r-control);
+  font-weight: 600; text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { transform: translateY(0); }
+
+.shell {
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-lift);
+  font-weight: 600;
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.45;
+  color: var(--cream-2);
+  max-width: 46ch;
+}
+
+/* --- Buttons: pill, the only rounded shape on the site --- */
+.btn {
+  --btn-bg: var(--gold);
+  --btn-fg: #17120a;
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.75rem 1.6rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-control);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 700;
+  font-size: var(--step-0);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;           /* labels never wrap */
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.btn:hover { background: var(--gold-lift); }
+.btn:active { transform: translateY(1px) scale(0.985); }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--cream);
+  border-color: var(--hairline-strong);
+  backdrop-filter: blur(8px);
+}
+.btn--ghost:hover { --btn-bg: rgb(244 240 230 / 0.08); border-color: var(--cream-3); }
+
+.btn .icon { width: 1.1em; height: 1.1em; flex: none; }
+
+/* --- Icons (Phosphor, inlined as a sprite; no network, no hand-drawn paths) --- */
+.icon { width: 1.25rem; height: 1.25rem; fill: currentColor; flex: none; }
+
+/* --- Film grain: fixed, non-interactive, never on a scrolling container --- */
+.grain {
+  position: fixed; inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  /* Ruido gerado por feTurbulence: zero bytes de imagem. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .grain { animation: grain-shift 5s steps(6) infinite; }
+}
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -3%); }
+  60%  { transform: translate(-2%, -2%); }
+  80%  { transform: translate(3%, 1%); }
+  100% { transform: translate(0, 0); }
+}

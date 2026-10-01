@@ -1,0 +1,73 @@
+/* ============================================================
+   BFF - Design tokens
+   Palette extracted from the real brand asset (BFF-logo.ai):
+     gold  CMYK 10 / 40 / 95 / 15  ->  #c3820b
+     black CMYK  0 /  0 /  0 / 100 ->  used as off-black #0c0b0a
+     white CMYK  0 /  0 /  0 /  0  ->  used as cream    #f4f0e6
+
+   THEME LOCK: this site is dark, end to end. No section inverts.
+   RADIUS RULE: surfaces and media are square (0). Interactive
+   controls (buttons, chips, pills) are fully rounded. Nothing else.
+   ============================================================ */
+
+:root {
+  /* --- Surfaces --- */
+  --ink:        #0c0b0a;
+  --ink-raised: #141110;
+  --ink-high:   #1c1917;
+  --hairline:   rgb(244 240 230 / 0.12);
+  --hairline-strong: rgb(244 240 230 / 0.22);
+
+  /* --- Ink on dark --- */
+  --cream:      #f4f0e6;
+  --cream-2:    rgb(244 240 230 / 0.72); /* 8.9:1 on --ink */
+  --cream-3:    rgb(244 240 230 / 0.52); /* 5.4:1 on --ink, body minimum */
+
+  /* --- Accent: one, and only one, for the whole site --- */
+  --gold:       #c3820b;  /* 5.8:1 on --ink  */
+  --gold-lift:  #e2a02b;  /* 8.4:1 on --ink, for small text and focus */
+  --gold-wash:  rgb(195 130 11 / 0.14);
+
+  /* --- Semantic state (real state only, never decoration) --- */
+  --open:       #6fbf73;
+  --closed:     rgb(244 240 230 / 0.40);
+
+  /* --- Type --- */
+  --font-display: "Anton", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step--1: clamp(0.80rem, 0.77rem + 0.14vw, 0.88rem);
+  --step-0:  clamp(0.98rem, 0.94rem + 0.20vw, 1.10rem);
+  --step-1:  clamp(1.20rem, 1.10rem + 0.50vw, 1.50rem);
+  --step-2:  clamp(1.65rem, 1.35rem + 1.50vw, 2.60rem);
+  --step-3:  clamp(2.40rem, 1.70rem + 3.40vw, 4.60rem);
+  --step-4:  clamp(3.20rem, 1.80rem + 6.80vw, 8.00rem);
+
+  /* --- Space --- */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --section-y: clamp(5rem, 11vh, 9rem);
+  --measure: 62ch;
+  --shell: 1440px;
+
+  /* --- Shape --- */
+  --r-surface: 0px;
+  --r-control: 999px;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur: 420ms;
+  --dur-slow: 900ms;
+
+  /* --- Layers (the complete scale; nothing outside it) --- */
+  --z-stage: 0;
+  --z-content: 1;
+  --z-nav: 40;
+  --z-overlay: 50;
+  --z-grain: 60;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 1ms; --dur: 1ms; --dur-slow: 1ms; }
+}

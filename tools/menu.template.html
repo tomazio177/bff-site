@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu | BFF, Beer, Food &amp; Freinds</title>
+<meta name="description" content="Menu do BFF, Beer, Food &amp; Freinds em Vila Real. Carregado directamente do serviço do café, sempre actualizado.">
+<meta name="theme-color" content="#0c0b0a">
+<link rel="canonical" href="/menu.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BFF, Beer, Food &amp; Freinds">
+<meta property="og:title" content="Menu | BFF, Beer, Food &amp; Freinds">
+<meta property="og:description" content="O menu do BFF em Vila Real.">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:image" content="/assets/brand/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" href="/css/story.css">
+<link rel="stylesheet" href="/css/menu.css">
+
+<script>document.documentElement.classList.add("js");</script>
+</head>
+
+<body class="page-menu">
+<a class="skip-link" href="#conteudo">Saltar para o menu</a>
+<div class="grain" aria-hidden="true"></div>
+
+{{NAV:menu}}
+
+<main id="conteudo">
+
+  <section class="menu-hero">
+    <div class="shell menu-hero__grid">
+      <div>
+        <h1 class="menu-hero__title">Menu</h1>
+        <p class="menu-hero__lede">
+          Carregado directamente do serviço do BFF. O que muda lá, muda aqui.
+        </p>
+        <p class="menu-hero__stamp" data-menu-stamp aria-live="polite"></p>
+      </div>
+      <img class="menu-hero__mark" src="/assets/brand/logo/bff-badge.svg" alt=""
+           width="560" height="559" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <nav class="catnav" data-menu-catnav aria-label="Categorias do menu" hidden></nav>
+
+  <div class="menu-body shell" data-menu-root data-state="loading" aria-live="polite"
+       aria-busy="true"></div>
+
+  <section class="menu-foot">
+    <div class="shell menu-foot__grid">
+      <p class="menu-foot__note">
+        Rua DR Domingos Campos, Bloco D, loja 7<br>
+        Nossa Sr. da Conceição, Vila Real
+      </p>
+      <div class="menu-foot__actions">
+        <a class="btn" data-maps-link
+           href="https://www.google.com/maps/search/?api=1&amp;query=BFF%20beer%20food%20%26%20friends%2C%20Rua%20DR%20Domingos%20Campos%2C%20Vila%20Real"
+           target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-map-pin"></use></svg>
+          Ver no mapa
+        </a>
+        <a class="btn btn--ghost" href="/#horarios">
+          <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
+          Horários
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{{FOOTER}}
+
+<div data-icon-sprite hidden></div>
+<script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
+<script type="module" src="/js/menu-page.js"></script>
+</body>
+</html>

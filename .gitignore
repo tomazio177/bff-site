@@ -1,0 +1,10 @@
+node_modules/
+
+# Segredos do biip e do alojamento: só em variáveis de ambiente
+.env*
+.vercel/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store

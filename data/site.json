@@ -1,0 +1,106 @@
+{
+  "_readme": "Unica fonte de verdade para dados factuais do BFF. Campos com \"TBD\" ainda nao foram fornecidos e NAO devem ser inventados. Ver README.md.",
+  "name": "BFF, Beer, Food & Freinds",
+  "_name_note": "Grafia mantida exatamente como no briefing. O ficheiro BFF-logo.ai escreve FRIENDS e o Instagram indicado e @bffbeerfoodfriends. Para corrigir, altere apenas este campo.",
+  "shortName": "BFF",
+  "tagline": "Your kind of place",
+  "_tagline_source": "Retirado do proprio logo (BFF-logo.ai).",
+  "established": 2021,
+  "_established_source": "Retirado do proprio logo (BFF-logo.ai).",
+  "locality": "Vila Real",
+  "area": "Nossa Sr. Da Conceicao",
+  "country": "Portugal",
+  "street": "Rua DR Domingos Campos, Bloco D, loja 7",
+  "postalCode": "TBD",
+  "geo": {
+    "lat": null,
+    "lng": null,
+    "_status": "TBD"
+  },
+  "hours": [
+    {
+      "day": 0,
+      "label": "Domingo",
+      "open": "14:00",
+      "close": "00:00"
+    },
+    {
+      "day": 1,
+      "label": "Segunda-feira",
+      "open": "14:00",
+      "close": "02:00"
+    },
+    {
+      "day": 2,
+      "label": "Terca-feira",
+      "open": "09:00",
+      "close": "02:00"
+    },
+    {
+      "day": 3,
+      "label": "Quarta-feira",
+      "open": "09:00",
+      "close": "02:00"
+    },
+    {
+      "day": 4,
+      "label": "Quinta-feira",
+      "open": "09:00",
+      "close": "02:00"
+    },
+    {
+      "day": 5,
+      "label": "Sexta-feira",
+      "open": "09:00",
+      "close": "02:00"
+    },
+    {
+      "day": 6,
+      "label": "Sabado",
+      "open": "10:00",
+      "close": "02:00"
+    }
+  ],
+  "_hours_note": "Horas de fecho depois da meia-noite pertencem ao dia seguinte.",
+  "instagram": {
+    "handle": "@bffbeerfoodfriends",
+    "url": "https://www.instagram.com/bffbeerfoodfriends/",
+    "_status": "URL derivado do handle fornecido no briefing. CONFIRMAR antes de publicar."
+  },
+  "maps": {
+    "url": "https://www.google.com/maps/search/?api=1&query=BFF%20beer%20food%20%26%20friends%2C%20Rua%20DR%20Domingos%20Campos%2C%20Vila%20Real",
+    "embed": null,
+    "_status": "Pesquisa pelo nome e morada fornecidos. O URL exato do Google Maps e o embed continuam TBD."
+  },
+  "contact": {
+    "phone": null,
+    "email": null,
+    "whatsapp": null,
+    "_status": "TBD. Nao mostrar na interface enquanto forem nulos."
+  },
+  "menuUrl": null,
+  "_menuUrl_note": "URL publico do menu biip (app.biip.pt/<codigo>/menu). TBD - pedir ao biip ou ler do QR code das mesas.",
+  "description": null,
+  "history": null,
+  "_content_status": "TBD. Nenhum texto descritivo foi fornecido, por isso nenhum foi escrito.",
+  "about": {
+    "title": "Somos o café da cidade",
+    "body": [
+      "Abrimos em 2021 e ficámos. Das nove da manhã às duas da madrugada, passa por aqui Vila Real inteira. O que nos trouxe até aqui não foi a carta: foi o modo como se está cá dentro.",
+      "É a parte do nome que conta mais. Friends."
+    ],
+    "_origem": "Texto escrito a pedido do cliente, com a direcção que ele deu: café da cidade, reconhecido por ser bom com as pessoas. Os factos usados (2021, Nossa Sr. da Conceicao, 09:00, 02:00) vêm do briefing e do logótipo."
+  },
+  "owner": {
+    "role": "A patroa",
+    "name": null,
+    "photo": null,
+    "story": null,
+    "_status": "TBD. Enquanto story for null, a secção mostra o convite a escrever. Preencher story publica o texto tal e qual.",
+    "_rascunho": [
+      "Rascunho para aprovar ou deitar fora. Não está publicado.",
+      "Sempre gostei de sítios onde as pessoas ficam. Não é o café que as segura, é a conversa. Vila Real tinha muitos sítios para passar, e eu queria um para ficar.",
+      "Abri o BFF em 2021 com essa ideia simples: comida boa, cerveja fresca, e alguém que se lembra de si quando entra pela segunda vez."
+    ]
+  }
+}

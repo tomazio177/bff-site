@@ -1,0 +1,35 @@
+{
+  "_aviso": "DADOS DE DEMONSTRACAO. Nao sao o menu real do BFF. Servem apenas para testar os estados da interface em desenvolvimento, com ?demo=1 no URL. Nunca sao carregados em producao.",
+  "currency": "EUR",
+  "updatedAt": null,
+  "categories": [
+    {
+      "id": "demo-a",
+      "name": "Categoria de demonstracao A",
+      "description": "Texto de demonstracao para verificar a descricao de categoria.",
+      "items": [
+        { "id": "d1", "name": "Item de demonstracao 1", "description": "Linha de descricao curta.", "price": 1.2 },
+        { "id": "d2", "name": "Item de demonstracao 2", "description": "Linha de descricao mais longa, para confirmar como o texto quebra em ecras estreitos e largos.", "price": 3.5, "featured": true },
+        { "id": "d3", "name": "Item de demonstracao 3", "price": 2 },
+        { "id": "d4", "name": "Item de demonstracao 4", "description": "Este item esta marcado como indisponivel.", "price": 4.75, "available": false }
+      ]
+    },
+    {
+      "id": "demo-b",
+      "name": "Categoria de demonstracao B",
+      "items": [
+        { "id": "d5", "name": "Item de demonstracao 5", "price": 8.9 },
+        { "id": "d6", "name": "Item de demonstracao 6", "description": "Sem preco definido, para testar o fallback.", "price": null },
+        { "id": "d7", "name": "Item de demonstracao 7", "price": 12.4 }
+      ]
+    },
+    {
+      "id": "demo-c",
+      "name": "Categoria de demonstracao C",
+      "items": [
+        { "id": "d8", "name": "Item de demonstracao 8", "description": "Ultimo bloco.", "price": 6 },
+        { "id": "d9", "name": "Item de demonstracao 9", "price": 2.4 }
+      ]
+    }
+  ]
+}

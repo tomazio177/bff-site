@@ -1,0 +1,16 @@
+{
+  "_readme": "A equipa do BFF. As fotografias vão para fotos-originais/equipa/. A de grupo chama-se grupo.jpg (ou .png). Cada membro aponta para o nome do ficheiro da sua fotografia. Nada aqui é inventado: o que estiver a null não aparece no site. Depois de mudar, correr: npm run build",
+
+  "grupo": {
+    "foto": "grupo.jpg",
+    "legenda": null
+  },
+
+  "texto": null,
+  "_texto": "Uma ou duas frases sobre a equipa, escritas por vocês. Enquanto for null não aparece nada (em modo preview aparece um quadro a dizer que falta).",
+
+  "membros": [],
+  "_membros_exemplo": [
+    { "foto": "ana.jpg", "nome": "Nome como quer aparecer", "papel": "Balcão" }
+  ]
+}

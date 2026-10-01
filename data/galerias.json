@@ -1,0 +1,42 @@
+{
+  "_readme": "Configuração das páginas Beer, Food e Equipa. Depois de mudar este ficheiro ou as fotografias, correr: npm run build",
+
+  "preview": true,
+  "_preview": "Enquanto for true, cada galeria é completada com quadrados 'Foto por chegar' até ao mínimo indicado, e a equipa mostra cartões por preencher. Pôr false antes de publicar.",
+
+  "paginas": {
+    "beer": {
+      "ficheiro": "beer.html",
+      "categoria": "beer",
+      "palavra": "Beer",
+      "etiqueta": "Bebidas",
+      "titulo": "Beer | BFF, Beer, Food & Freinds",
+      "descricao": "Cerveja, cocktails e o balcão do BFF, em Vila Real.",
+      "lede": "Cerveja fresca e o balcão cheio até tarde.",
+      "heroFoto": "bar",
+      "minimo": 9
+    },
+    "food": {
+      "ficheiro": "food.html",
+      "categoria": "food",
+      "palavra": "Food",
+      "etiqueta": "Comida",
+      "titulo": "Food | BFF, Beer, Food & Freinds",
+      "descricao": "A comida do BFF, em Vila Real.",
+      "lede": "Comida feita na hora, para partilhar ou não.",
+      "heroFoto": "hamburguer",
+      "minimo": 12
+    },
+    "equipa": {
+      "ficheiro": "equipa.html",
+      "categoria": "equipa",
+      "palavra": "& Friends",
+      "etiqueta": "A equipa",
+      "titulo": "A equipa | BFF, Beer, Food & Freinds",
+      "descricao": "A equipa do BFF, em Vila Real.",
+      "lede": "É a parte do nome que conta mais.",
+      "heroFoto": null,
+      "minimo": 6
+    }
+  }
+}

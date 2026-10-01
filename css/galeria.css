@@ -1,0 +1,427 @@
+/* ============================================================
+   BFF - Páginas Beer, Food e Equipa
+     .page-hero    a palavra gigante, cheia com a fotografia da página
+     .gallery      galeria em colunas, aguenta qualquer número de fotos
+     .tile-vazio   o lugar de uma fotografia que ainda não chegou
+     .team-*       a página da equipa
+     .xnav         o trio outra vez, agora como navegação entre páginas
+     .lightbox     o visualizador
+   ============================================================ */
+
+/* --------------------------- A PALAVRA --------------------------- */
+.page-hero {
+  position: relative;
+  padding-block: clamp(6.5rem, 15vh, 9rem) clamp(2rem, 5vh, 3.5rem);
+  overflow: hidden;
+  isolation: isolate;
+  border-block-end: 1px solid var(--hairline);
+}
+.page-hero__glow {
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-end: -20%;
+  width: min(90vw, 900px);
+  aspect-ratio: 1;
+  z-index: -1;
+  background: radial-gradient(circle, rgb(195 130 11 / 0.26), transparent 62%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+.page-hero__inner {
+  display: grid;
+  gap: clamp(0.8rem, 2vh, 1.3rem);
+  justify-items: start;
+}
+.page-hero__kicker { margin-block-end: -0.2rem; }
+
+/* O tamanho cabe sempre na largura: depende do número de letras da
+   palavra, que o gerador passa em --word-len. "Beer" pode ser enorme,
+   "& Friends" tem de encolher para não partir a linha. */
+.page-hero__word {
+  --fit: calc((100vw - var(--gutter) * 2) / (var(--word-len, 5) * 0.5));
+  font-size: min(22rem, var(--fit));
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  margin: 0;
+  padding-block-end: 0.04em;
+  will-change: clip-path, transform;
+}
+.page-hero__fill {
+  display: inline-block;
+  color: var(--cream);
+  white-space: nowrap;
+}
+/* A fotografia da página dentro das letras. A camada de cima clareia a
+   fotografia para as letras não se perderem no fundo escuro; a de baixo é
+   creme sólido e só se vê se a imagem falhar. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .page-hero__fill--foto {
+    background-image:
+      linear-gradient(rgb(244 240 230 / 0.36), rgb(244 240 230 / 0.36)),
+      var(--hero-img),
+      linear-gradient(var(--cream), var(--cream));
+    background-size: cover;
+    background-position: 50% var(--hero-y, 40%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* As fotografias do bar são escuras: a camada clara de cima e o
+       contorno dourado seguram a palavra. Sem filter: um filtro aqui também
+       aclarava o "&" e tirava-lhe o dourado da marca. */
+    -webkit-text-stroke: 1px rgb(226 160 43 / 0.55);
+  }
+}
+.page-hero__amp {
+  color: var(--gold-lift);
+  -webkit-text-fill-color: var(--gold-lift);
+}
+
+.page-hero__lede {
+  font-size: var(--step-1);
+  color: var(--cream-2);
+  max-width: 34ch;
+}
+.page-hero__count {
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cream-3);
+}
+.page-hero__note {
+  margin-block-start: 0.4rem;
+  padding: 0.7rem 1rem;
+  border: 1px dashed var(--hairline-strong);
+  font-size: var(--step--1);
+  color: var(--cream-2);
+  max-width: 52ch;
+}
+
+/* ---------------------------- GALERIA ---------------------------- */
+/* Colunas em vez de grelha: cada fotografia mantém a sua proporção e o
+   layout aguenta cinco ou cinquenta sem se desfazer. */
+.gallery-wrap {
+  padding-block: clamp(2rem, 6vh, 4rem) var(--section-y);
+}
+.gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: clamp(0.6rem, 1.6vw, 1.1rem);
+}
+@media (min-width: 700px) { .gallery { columns: 3; } }
+@media (min-width: 1100px) { .gallery { columns: 4; } }
+
+.gallery__item {
+  break-inside: avoid;
+  margin-block-end: clamp(0.6rem, 1.6vw, 1.1rem);
+}
+
+.tile { margin: 0; }
+.tile__open {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.tile__open .ph img {
+  transition: transform 700ms var(--ease-out), opacity 520ms var(--ease-out);
+}
+@media (hover: hover) {
+  .tile__open:hover .ph img { transform: scale(1.045); }
+}
+.tile__open:focus-visible { outline-offset: 2px; }
+
+/* Só o gesto: não é etiqueta, é o sinal de que a fotografia abre. */
+.tile__zoom {
+  position: absolute;
+  inset-block-end: 0.6rem;
+  inset-inline-end: 0.6rem;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-control);
+  background: rgb(12 11 10 / 0.72);
+  color: var(--cream);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.tile__zoom .icon { width: 1rem; height: 1rem; }
+.tile__open:hover .tile__zoom,
+.tile__open:focus-visible .tile__zoom { opacity: 1; transform: translateY(0); }
+
+.tile__caption {
+  margin-block-start: 0.5rem;
+  font-size: var(--step--1);
+  color: var(--cream-3);
+}
+
+/* O lugar de uma fotografia por chegar. Assumidamente vazio: nunca é
+   preenchido com fotografia que não seja do BFF. */
+.tile-vazio {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: var(--ph-ratio, 0.8);
+  border: 1px dashed var(--hairline-strong);
+  background:
+    radial-gradient(90% 70% at 50% 40%, rgb(195 130 11 / 0.08), transparent 70%),
+    var(--ink-raised);
+  overflow: hidden;
+}
+.tile-vazio img {
+  position: absolute;
+  width: 44%;
+  opacity: 0.06;
+}
+.tile-vazio span {
+  position: relative;
+  padding: 0.35rem 0.8rem;
+  background: var(--ink-raised);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cream-3);
+  text-align: center;
+}
+
+.gallery-empty {
+  display: grid;
+  justify-items: start;
+  gap: 1.2rem;
+  font-size: var(--step-1);
+  color: var(--cream-2);
+}
+
+/* ----------------------------- EQUIPA ---------------------------- */
+.team-top {
+  padding-block: clamp(2rem, 6vh, 4rem) 0;
+}
+.team-group { margin: 0; }
+.team-group .ph { aspect-ratio: 3 / 2; }
+.tile-vazio--grupo { aspect-ratio: 3 / 2; }
+@media (max-width: 699px) {
+  .team-group .ph,
+  .tile-vazio--grupo { aspect-ratio: 4 / 3; }
+}
+
+.team-intro {
+  margin-block-start: clamp(1.4rem, 4vh, 2.4rem);
+  max-width: 48ch;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--cream-2);
+}
+.team-intro--vazio {
+  padding: 0.9rem 1.1rem;
+  border: 1px dashed var(--hairline-strong);
+  font-size: var(--step--1);
+  color: var(--cream-3);
+}
+
+.team {
+  padding-block: clamp(3rem, 8vh, 5rem) var(--section-y);
+}
+.team__title {
+  font-size: var(--step-2);
+  margin-block-end: clamp(1.2rem, 3vh, 2rem);
+}
+.team__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.8rem) clamp(0.7rem, 2vw, 1.4rem);
+}
+@media (min-width: 700px) { .team__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .team__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.team-card__photo .ph,
+.team-card__photo .tile-vazio { aspect-ratio: 4 / 5; }
+.team-card__name {
+  margin-block-start: 0.7rem;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.team-card__role {
+  margin-block-start: 0.3rem;
+  font-size: var(--step--1);
+  color: var(--cream-3);
+}
+.team-card--vazio .team-card__name,
+.team-card--vazio .team-card__role {
+  color: var(--cream-3);
+  text-decoration: underline dashed rgb(244 240 230 / 0.3);
+  text-underline-offset: 0.25em;
+}
+
+/* ------------------------ O TRIO, OUTRA VEZ ---------------------- */
+/* As três palavras da página inicial voltam como navegação entre as
+   páginas. Quem chegou pelo "Food" segue para "& Friends" sem voltar atrás. */
+.xnav {
+  padding-block: clamp(3rem, 9vh, 5.5rem);
+  border-block-start: 1px solid var(--hairline);
+  background:
+    radial-gradient(90% 100% at 15% 100%, rgb(195 130 11 / 0.14), transparent 60%),
+    var(--ink);
+}
+.xnav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.xnav__item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.25em;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 16vw, 8.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream);
+  transition: color var(--dur) var(--ease-out);
+}
+.xnav__amp { color: var(--gold-lift); }
+.xnav__arrow {
+  width: 0.34em;
+  height: 0.34em;
+  margin-block-start: 0.08em;
+  color: var(--gold-lift);
+  opacity: 0;
+  transform: translate(-0.1em, 0.1em);
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.xnav__item:hover,
+.xnav__item:focus-visible { color: var(--gold-lift); }
+.xnav__item:hover .xnav__arrow,
+.xnav__item:focus-visible .xnav__arrow { opacity: 1; transform: none; }
+/* Em ecrãs de toque não há hover: a seta fica sempre visível. */
+@media (hover: none) {
+  .xnav__arrow { opacity: 0.8; transform: none; }
+}
+
+.xnav__item[aria-current="page"] {
+  color: rgb(244 240 230 / 0.26);
+  pointer-events: none;
+}
+.xnav__item[aria-current="page"] .xnav__amp { color: rgb(226 160 43 / 0.3); }
+.xnav__item[aria-current="page"] .xnav__arrow { display: none; }
+.xnav__here {
+  align-self: center;
+  margin-inline-start: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* --------------------------- VISUALIZADOR ------------------------ */
+.lightbox {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(8 7 6 / 0.96);
+  color: var(--cream);
+  overflow: hidden;
+}
+.lightbox::backdrop { background: rgb(8 7 6 / 0.7); }
+.lightbox[open] { display: grid; place-items: center; }
+
+.lightbox__stage {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  padding: clamp(3.5rem, 8vh, 5rem) clamp(0.5rem, 5vw, 5rem) clamp(4rem, 9vh, 5.5rem);
+  width: 100%;
+  height: 100%;
+  align-content: center;
+}
+.lightbox__frame {
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+  touch-action: pan-y;
+}
+.lightbox__frame .ph {
+  aspect-ratio: auto;
+  background: none;
+  overflow: visible;
+}
+.lightbox__frame img {
+  width: auto;
+  height: auto;
+  max-width: min(92vw, 1500px);
+  max-height: calc(100dvh - 11rem);
+  object-fit: contain;
+  opacity: 1;
+}
+.lightbox__caption {
+  min-height: 1.4em;
+  font-size: var(--step--1);
+  color: var(--cream-2);
+  text-align: center;
+}
+.lightbox__count {
+  position: absolute;
+  inset-block-start: 1.2rem;
+  inset-inline-start: 1.4rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--cream-3);
+  font-variant-numeric: tabular-nums;
+}
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-control);
+  background: rgb(12 11 10 / 0.6);
+  color: var(--cream);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.lightbox__btn:hover { background: rgb(244 240 230 / 0.1); border-color: var(--cream-3); }
+.lightbox__btn:active { transform: scale(0.96); }
+.lightbox__close { inset-block-start: 0.8rem; inset-inline-end: 0.8rem; }
+.lightbox__prev { inset-inline-start: clamp(0.5rem, 2vw, 1.5rem); inset-block-start: 50%; translate: 0 -50%; }
+.lightbox__next { inset-inline-end: clamp(0.5rem, 2vw, 1.5rem); inset-block-start: 50%; translate: 0 -50%; }
+/* No telemóvel as setas descem para baixo da fotografia, ao alcance do polegar. */
+@media (max-width: 699px) {
+  .lightbox__prev,
+  .lightbox__next { inset-block-start: auto; inset-block-end: 1rem; translate: none; }
+  .lightbox__prev { inset-inline-start: calc(50% - 60px); }
+  .lightbox__next { inset-inline-end: calc(50% - 60px); }
+}
+.lightbox[data-single] .lightbox__prev,
+.lightbox[data-single] .lightbox__next,
+.lightbox[data-single] .lightbox__count { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile__open .ph img { transition: none; }
+  .page-hero__word { clip-path: none !important; transform: none !important; }
+}

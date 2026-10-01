@@ -1,0 +1,350 @@
+/* ============================================================
+   BFF - Layout das secções
+   Uma família de layout por secção. Nenhuma se repete.
+     nav      barra fina, uma linha
+     story    hero, trio, sobre, patroa e galeria    (story.css)
+     hours    grelha de dados 7/5
+     place    cartaz de página inteira com marca em marca de água
+     finale   acto de fecho fixado             (story.css)
+     marquee  a tira da assinatura              (story.css)
+     foot     três colunas
+   ============================================================ */
+
+/* ------------------------------ NAV ------------------------------ */
+.nav {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-nav);
+  transition: background var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out);
+  border-block-end: 1px solid transparent;
+}
+.nav[data-stuck] {
+  background: rgb(12 11 10 / 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-block-end-color: var(--hairline);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .nav[data-stuck] { background: rgb(12 11 10 / 0.96); }
+}
+
+.nav__inner {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;            /* alvo de toque confortavel */
+  text-decoration: none;
+  margin-inline-end: auto;
+}
+.nav__brand img { width: 36px; height: 36px; }
+.nav__brand-text {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding-block-start: 2px;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2rem);
+  white-space: nowrap;
+}
+.nav__links a {
+  position: relative;
+  font-size: var(--step--1);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cream-2);
+  text-decoration: none;
+  padding-block: 0.4rem;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease-out);
+}
+.nav__links a:hover { color: var(--cream); }
+.nav__links a:hover::after { transform: scaleX(1); }
+
+.nav__social {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: var(--r-control);
+  color: var(--cream-2);
+  transition: color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+.nav__social:hover { color: var(--gold-lift); background: rgb(244 240 230 / 0.07); }
+
+.nav__toggle {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  background: none; border: 0; border-radius: var(--r-control);
+  color: var(--cream); cursor: pointer;
+}
+
+.nav__drawer { display: none; }
+
+@media (max-width: 899px) {
+  .nav__links, .nav__social { display: none; }
+  .nav__toggle { display: flex; }
+  .nav__drawer {
+    display: grid;
+    padding: 0.5rem var(--gutter) 1.5rem;
+    background: rgb(12 11 10 / 0.97);
+    border-block-end: 1px solid var(--hairline);
+  }
+  .nav__drawer[hidden] { display: none; }
+  .nav__drawer a {
+    padding-block: 0.9rem;
+    border-block-start: 1px solid var(--hairline);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cream);
+  }
+}
+
+/* O hero, o trio, o sobre, a patroa e a galeria vivem em story.css,
+   porque sao as seccoes construidas sobre fotografia. */
+
+/* ----------------------------- HORAS ----------------------------- */
+.hours {
+  padding-block: var(--section-y);
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.hours__grid {
+  display: grid;
+  gap: clamp(2rem, 6vw, 5rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .hours__grid { grid-template-columns: 7fr 5fr; }
+}
+
+.hours__state {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cream-3);
+  margin-block-end: 0.9rem;
+}
+/* Estado real do estabelecimento, não decoração. */
+.hours__dot {
+  width: 9px; height: 9px;
+  border-radius: var(--r-control);
+  background: var(--closed);
+  flex: none;
+}
+[data-open="true"] .hours__dot { background: var(--open); }
+[data-open="true"] .hours__state { color: var(--open); }
+
+.hours__now {
+  font-size: var(--step-3);
+  letter-spacing: -0.01em;
+}
+.hours__next {
+  margin-block-start: 0.9rem;
+  color: var(--cream-2);
+  font-size: var(--step-1);
+  max-width: 30ch;
+}
+
+.hours__table dl { margin: 0; }
+.hours__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 0.95rem;
+}
+/* Uma só regra entre linhas, nunca em cima e em baixo. */
+.hours__row + .hours__row { border-block-start: 1px solid var(--hairline); }
+.hours__row dt {
+  font-weight: 500;
+  color: var(--cream-2);
+}
+.hours__row dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+.hours__row[data-today] dt,
+.hours__row[data-today] dd { color: var(--gold-lift); }
+.hours__row[data-today] dt::after {
+  content: "hoje";
+  margin-inline-start: 0.7rem;
+  font-size: 0.72em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ----------------------------- LUGAR ----------------------------- */
+.place {
+  position: relative;
+  padding-block: clamp(6rem, 16vh, 11rem);
+  overflow: hidden;
+  isolation: isolate;
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink-raised);
+  z-index: var(--z-content);
+}
+
+.place__grid { position: relative; }
+
+.place__title {
+  font-size: var(--step-4);
+  letter-spacing: -0.015em;
+}
+.place__address {
+  font-style: normal;
+  margin-block-start: 1.6rem;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--cream-2);
+  max-width: 24ch;
+}
+.place__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: 2.2rem;
+}
+
+/* Marca de água: a marca real, não um enfeite genérico. */
+.place__mark {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: -6%;
+  width: min(52vw, 560px);
+  transform: translateY(-50%);
+  opacity: 0.13;
+  z-index: -1;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .place__mark { animation: seal-spin 90s linear infinite; }
+}
+@keyframes seal-spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+@media (max-width: 720px) {
+  .place__mark { inset-inline-end: -24%; width: 88vw; opacity: 0.09; }
+}
+
+/* ----------------------------- MENU CTA -------------------------- */
+/* As pastilhas e a mensagem de estado do menu vivem agora dentro do
+   final, em story.css. So o que se segue continua em uso. */
+
+.menucta__preview { min-height: 3rem; }
+
+.menucta__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0.35rem 1.1rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-control);
+  font-size: var(--step--1);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cream-2);
+}
+.chip--skeleton {
+  width: clamp(84px, 16vw, 132px);
+  border-color: transparent;
+  background: linear-gradient(90deg,
+    rgb(244 240 230 / 0.05) 25%,
+    rgb(244 240 230 / 0.12) 50%,
+    rgb(244 240 230 / 0.05) 75%);
+  background-size: 240% 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip--skeleton { animation: shimmer 1.4s linear infinite; }
+}
+@keyframes shimmer { to { background-position: -240% 0; } }
+
+.menucta__msg {
+  margin-block-start: 1rem;
+  color: var(--cream-3);
+  font-size: var(--step--1);
+}
+[data-state="error"] .menucta__msg { color: var(--cream-2); }
+
+/* ---------------------------- RODAPÉ ----------------------------- */
+.foot {
+  padding-block: clamp(3rem, 8vh, 5rem);
+  border-block-start: 1px solid var(--hairline);
+  background: var(--ink);
+  position: relative;
+  z-index: var(--z-content);
+}
+.foot__grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 760px) {
+  .foot__grid { grid-template-columns: minmax(180px, 1fr) 1fr auto; gap: clamp(2rem, 6vw, 5rem); }
+}
+.foot__mark { width: min(58vw, 240px); opacity: 0.9; }
+.foot__col {
+  display: grid;
+  gap: 0.2rem;
+  align-content: start;
+  font-size: var(--step--1);
+  color: var(--cream-3);
+  line-height: 1.7;
+}
+.foot__col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;            /* alvo de toque confortavel */
+  padding-inline-end: 0.5rem;
+  color: var(--cream-2);
+  text-decoration: none;
+  width: fit-content;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.foot__col a:hover { color: var(--gold-lift); }
+.icon--sm { width: 0.95em; height: 0.95em; }
